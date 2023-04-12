@@ -9,13 +9,22 @@ export function isVideoMuted(): boolean {
   return parseInt(volumeSlider?.style.left || "0") === 0;
 }
 
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 export function clickSkipAdBtn(): void {
-  const elems = getElementsByClassNames([
-    "videoAdUiSkipButton", // Old close ad button
-    "ytp-ad-skip-button ytp-button", // New close ad button
-  ]);
-  logger.debug("clicking on elems: ", elems);
-  elems.forEach((el) => clickElem(el));
+  const random_number = Math.floor(Math.random() * 3000) + 1000;
+  logger.debug("delaying click for " + random_number + " seconds");
+  
+  sleep(random_number).then(() => {
+    const elems = getElementsByClassNames([
+      "videoAdUiSkipButton", // Old close ad button
+      "ytp-ad-skip-button ytp-button", // New close ad button
+    ]);
+    logger.debug("clicking on elems: ", elems);
+    elems.forEach((el) => clickElem(el));
+  });
 }
 
 export function clickMuteBtn(): void {
